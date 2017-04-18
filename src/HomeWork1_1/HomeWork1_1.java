@@ -9,5 +9,7 @@ public class HomeWork1_1 {
 
         System.out.println("Enter Your name:");
         System.out.println("Hello, " + sc.nextLine());
+
+        sc.close();
     }
 }

@@ -14,10 +14,12 @@ public class HomeWork1_2{
             array[i] = sc.nextInt();
         }
 
+        sc.close();
+
         ArrayHolder arrayHolder = new ArrayHolder(array);
 
-        System.out.println("Initial array: " + arrayHolder);
+        System.out.println("Initial array: " + arrayHolder.ArrayToString());
         arrayHolder.sortArray();
-        System.out.println("Sorted array: " + arrayHolder);
+        System.out.println("Sorted array: " + arrayHolder.ArrayToString());
     }
 }

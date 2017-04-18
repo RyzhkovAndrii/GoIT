@@ -13,8 +13,7 @@ public class ArrayHolder {
         Arrays.sort(array);
     }
 
-    @Override
-    public String toString() {
+    public String ArrayToString() {
         StringBuilder s1 = new StringBuilder();
         for (int i = 0; i < array.length - 1; i++) {
             s1.append(array[i]);
