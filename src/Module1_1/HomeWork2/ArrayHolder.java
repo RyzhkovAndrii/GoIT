@@ -1,4 +1,4 @@
-package HomeWork1_2;
+package Module1_1.HomeWork2;
 
 import java.util.Arrays;
 
@@ -13,7 +13,7 @@ public class ArrayHolder {
         Arrays.sort(array);
     }
 
-    public String ArrayToString() {
+    public String arrayToString() {
         StringBuilder s1 = new StringBuilder();
         for (int i = 0; i < array.length - 1; i++) {
             s1.append(array[i]);

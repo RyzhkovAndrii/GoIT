@@ -1,4 +1,4 @@
-package HomeWork1_2;
+package Module1_1.HomeWork2;
 
 import java.util.Scanner;
 
@@ -18,8 +18,8 @@ public class HomeWork1_2{
 
         ArrayHolder arrayHolder = new ArrayHolder(array);
 
-        System.out.println("Initial array: " + arrayHolder.ArrayToString());
+        System.out.println("Initial array: " + arrayHolder.arrayToString());
         arrayHolder.sortArray();
-        System.out.println("Sorted array: " + arrayHolder.ArrayToString());
+        System.out.println("Sorted array: " + arrayHolder.arrayToString());
     }
 }

@@ -1,4 +1,4 @@
-package HomeWork1_1;
+package Module1_1.HomeWork1;
 
 import java.util.Scanner;
 
