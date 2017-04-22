@@ -2,7 +2,7 @@ package Module1_1.HomeWork2;
 
 import java.util.Scanner;
 
-public class HomeWork1_2{
+public class HomeWork2App {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
