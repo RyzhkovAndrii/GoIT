@@ -11,11 +11,13 @@ public class MenuHelper {
 
     private static int readInt(String request) {
         System.out.print(request);
-        while (!scanner.hasNextInt()) {
-            System.out.print(request);
-            scanner.next();
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.print(request);
+            }
         }
-        return scanner.nextInt();
     }
 
     private static void initArrayHolder() {
