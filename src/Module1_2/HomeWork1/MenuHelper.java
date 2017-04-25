@@ -20,8 +20,14 @@ public class MenuHelper {
         }
     }
 
+    private static int enterSizeArray() {
+        int size;
+        while ((size  = readInt("Enter arrays length: ")) < 1);
+        return size;
+    }
+
     private static void initArrayHolder() {
-        int[] array = new int[readInt("Enter arrays length: ")];
+        int[] array = new int[enterSizeArray()];
         for (int i = 0; i < array.length; i++) {
             array[i] = readInt("array [" + (i + 1) + "] = ");
         }
