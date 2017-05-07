@@ -1,47 +1,21 @@
 package Module1_3.TicTacToe;
 
-import java.util.Scanner;
+public class GameLogic {
 
-public class GameLogic{
-
-    Scanner in = new Scanner(System.in);
+    Player[] players = {new HumanPlayer("Player1"), new ComputerPlayer()};
 
     Field field = new Field();
+
     int movesCount = 0;
+    int turn;
 
     private String getMark() {
-        return movesCount % 2 == 1 ? "X" : "O";
+        return turn == 0 ? "X" : "O";
     }
 
-    private String getPlayerMove() {
+    private void processMove(Player player) {
 
-        System.out.print("Your turn, make your move: ");
-
-        String move;
-
-        while (true) {
-            move = in.nextLine();
-            if (field.isCellFree(move)) break;
-            System.out.print("Your move is not correct, try again: ");
-        }
-
-        return move;
-    }
-
-    private String getPcMove() {
-
-        int randomIndex = (int) (Math.random() * field.getFreeCells().length());
-        char move = field.getFreeCells().charAt(randomIndex);
-
-        System.out.println("PC make his move!");
-
-        return String.valueOf(move);
-
-    }
-
-    private void doMove(String move) {
-
-        movesCount++;
+        String move = player.makeMove(field);
 
         for (int i = 0; i < field.fieldSize; i++) {
 
@@ -56,16 +30,79 @@ public class GameLogic{
             }
 
         }
-
     }
 
-    private boolean isWinner() {
+    private boolean isWinner(Player player) {
 
         for (int i = 0; i < field.fieldSize; i++) {
 
+            int markCount = 0;
+
             for (int j = 0; j < field.fieldSize; j++) {
-                if (!field.getField()[i][j].equals(getMark())) break;
+
+                if (field.getField()[i][j].equals(getMark())) {
+                    markCount++;
+                } else {
+                    markCount = 0;
+                    break;
+                }
+
             }
+
+            if (markCount == 3) {
+                System.out.println(player.getName() + " is winner!!!");
+                return true;
+            }
+
+            markCount = 0;
+
+            for (int j = 0; j < field.fieldSize; j++) {
+
+                if (field.getField()[j][i].equals(getMark())) {
+                    markCount++;
+                } else {
+                    markCount = 0;
+                    break;
+                }
+
+            }
+
+            if (markCount == 3) {
+                System.out.println(player.getName() + " is winner!!!");
+                return true;
+            }
+        }
+
+        int markCount = 0;
+
+        for (int i = 0; i < field.fieldSize ; i++) {
+            if (field.getField()[i][i].equals(getMark())) {
+                 markCount++;
+            } else {
+                markCount = 0;
+                break;
+            }
+        }
+
+        if (markCount == 3) {
+            System.out.println(player.getName() + " is winner!!!");
+            return true;
+        }
+
+        markCount = 0;
+
+        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize ; i++, k--) {
+            if (field.getField()[i][k].equals(getMark())) {
+                markCount++;
+            } else {
+                markCount = 0;
+                break;
+            }
+        }
+
+        if (markCount == 3) {
+            System.out.println(player.getName() + " is winner!!!");
+            return true;
         }
 
         return false;
@@ -77,28 +114,20 @@ public class GameLogic{
 
         while(true) {
 
-            doMove(getPlayerMove());
+            processMove(players[turn]);
             field.printField();
-            if (isWinner()) {
-                System.out.println("Congratulations, you won!");
-                break;
-            }
+            if (isWinner(players[turn])) break;
+
+            movesCount++;
+            turn = movesCount % 2;
+
             if (movesCount == 9) {
                 System.out.println("It is draw...");
                 break;
             }
-
-            doMove(getPcMove());
-            field.printField();
-            if (isWinner()) {
-                System.out.println("Sorry, you loose!");
-                break;
-            }
-
         }
 
         System.out.println("The END!");
-        in.close();
     }
 
 }
