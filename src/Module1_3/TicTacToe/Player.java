@@ -1,5 +1,7 @@
 package Module1_3.TicTacToe;
 
+import java.util.Scanner;
+
 public abstract class Player {
 
     private String name;
@@ -12,6 +14,6 @@ public abstract class Player {
         return name;
     }
 
-    public abstract String makeMove(Field field);
+    public abstract String makeMove(Field field, Scanner scanner);
 
 }

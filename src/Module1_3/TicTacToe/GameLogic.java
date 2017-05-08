@@ -1,9 +1,10 @@
 package Module1_3.TicTacToe;
 
+import java.util.Scanner;
+
 public class GameLogic {
 
-    //private Player[] players = {new HumanPlayer("Player1"), new ComputerPlayer()};
-    private Player[] players = {new ComputerPlayer(), new ComputerPlayer()};
+    private Player[] players = new Player[2];
 
     private Field field = new Field();
 
@@ -13,13 +14,38 @@ public class GameLogic {
     private int xMoveCoord;
     private int yMoveCoord;
 
+    private Scanner scanner = new Scanner(System.in);
+
+    private void initGame() {
+
+        players[0] = new HumanPlayer("Player 1");
+
+        System.out.print("Choose number of players (1 or 2): ");
+
+        while (true) {
+
+            switch (scanner.nextLine()) {
+                case "1":
+                    players[1] = new ComputerPlayer();
+                    return;
+                case "2":
+                    players[1] = new HumanPlayer("Player 2");
+                    return;
+                default:
+                    System.out.print("Your choose is not correct, try again: ");
+                    break;
+            }
+
+        }
+    }
+
     private String getMark() {
         return turn == 0 ? "X" : "O";
     }
 
     private void processMove(Player player) {
 
-        String move = player.makeMove(field);
+        String move = player.makeMove(field, scanner);
 
         for (int i = 0; i < field.fieldSize; i++) {
 
@@ -43,7 +69,7 @@ public class GameLogic {
 
     private boolean isWinner(Player player) {
 
-        if (movesCount < 5) return false;
+        if (movesCount < 4) return false;
 
         int currentMove = yMoveCoord + xMoveCoord * field.fieldSize + 1;
 
@@ -135,6 +161,8 @@ public class GameLogic {
 
     public void start() {
 
+        initGame();
+
         field.printField();
 
         while(true) {
@@ -151,6 +179,8 @@ public class GameLogic {
                 break;
             }
         }
+
+        scanner.close();
 
         System.out.println("The END!");
     }

@@ -4,25 +4,19 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 
-    Scanner in = new Scanner(System.in);
-
     public HumanPlayer(String name) {
         super(name);
     }
 
     @Override
-    public String makeMove(Field field) {
+    public String makeMove(Field field, Scanner scanner) {
 
-        System.out.print("Your turn, make your move: ");
-
-        String move;
+        System.out.print(getName() + ", please make your move: ");
 
         while (true) {
-            move = in.nextLine();
-            if (!move.isEmpty() && field.isCellFree(move)) break;
+            String move = scanner.nextLine();
+            if (!move.isEmpty() && field.isCellFree(move))  return move;
             System.out.print("Your move is not correct, try again: ");
         }
-
-        return move;
     }
 }
