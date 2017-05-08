@@ -80,78 +80,58 @@ class GameLogic {
 
         switch (currentMove % 2) {
 
-            case 1: {
+            case 1:
 
                 switch (currentMove) {
 
-                    case 5: {
+                    case 5:
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
                             isWinMainDiagonal &= field.getCell(i, i).equals(player.getMark());
                             isWinSideDiagonal &= field.getCell(i, k).equals(player.getMark());
                         }
 
-                        if (isWinMainDiagonal || isWinSideDiagonal) {
-                            System.out.println(player.getName() + " is winner!!!");
-                            return true;
-                        }
+                        if (isWinMainDiagonal || isWinSideDiagonal) return true;
 
                         break;
 
-                    }
-
                     case 1:
-                    case 9: {
+                    case 9:
 
                         for (int i = 0; i < field.fieldSize; i++) {
                             isWinMainDiagonal &= field.getCell(i, i).equals(player.getMark());
                         }
 
-                        if (isWinMainDiagonal) {
-                            System.out.println(player.getName() + " is winner!!!");
-                            return true;
-                        }
+                        if (isWinMainDiagonal) return true;
 
                         break;
-                    }
 
                     case 3:
-                    case 7: {
+                    case 7:
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
                             isWinSideDiagonal &= field.getCell(i, k).equals(player.getMark());
                         }
 
-                        if (isWinSideDiagonal) {
-                            System.out.println(player.getName() + " is winner!!!");
-                            return true;
-                        }
+                        if (isWinSideDiagonal) return true;
 
                         break;
-
-                    }
 
                     default: break;
 
                 }
 
-            }
-
-            case 0: {
+            case 0:
 
                 for (int i = 0; i < field.fieldSize; i++) {
                     isWinHorizontal &= field.getCell(i, moveCoordinateVertical).equals(player.getMark());
                     isWinVertical &= field.getCell(moveCoordinateHorizontal, i).equals(player.getMark());
                 }
 
-                if (isWinHorizontal || isWinVertical) {
-                    System.out.println(player.getName() + " is winner!!!");
-                    return true;
-                }
-
-            }
+                if (isWinHorizontal || isWinVertical) return true;
 
             default: break;
+
         }
 
         return false;
@@ -167,7 +147,11 @@ class GameLogic {
 
             processMove(players[turn]);
             field.printField();
-            if (isWinner(players[turn])) break;
+
+            if (isWinner(players[turn])) {
+                System.out.println(players[turn].getName() + " is winner!!!");
+                break;
+            }
 
             movesCount++;
             turn = movesCount % 2;
@@ -180,7 +164,6 @@ class GameLogic {
 
         scanner.close();
 
-        System.out.println("The END!");
     }
 
 }
