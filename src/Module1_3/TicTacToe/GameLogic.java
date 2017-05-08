@@ -2,12 +2,16 @@ package Module1_3.TicTacToe;
 
 public class GameLogic {
 
-    Player[] players = {new HumanPlayer("Player1"), new ComputerPlayer()};
+    //private Player[] players = {new HumanPlayer("Player1"), new ComputerPlayer()};
+    private Player[] players = {new ComputerPlayer(), new ComputerPlayer()};
 
-    Field field = new Field();
+    private Field field = new Field();
 
-    int movesCount = 0;
-    int turn;
+    private int movesCount = 0;
+    private int turn;
+
+    private int xMoveCoord;
+    private int yMoveCoord;
 
     private String getMark() {
         return turn == 0 ? "X" : "O";
@@ -22,8 +26,13 @@ public class GameLogic {
             for (int j = 0; j < field.fieldSize; j++) {
 
                 if (move.equals(field.getField()[i][j])) {
+
                     field.getField()[i][j] = getMark();
                     field.takeUpFreeCell(move);
+
+                    xMoveCoord = j;
+                    yMoveCoord = i;
+
                     return;
                 }
 
@@ -34,75 +43,91 @@ public class GameLogic {
 
     private boolean isWinner(Player player) {
 
-        for (int i = 0; i < field.fieldSize; i++) {
+        if (movesCount < 5) return false;
 
-            int markCount = 0;
+        int currentMove = yMoveCoord + xMoveCoord * field.fieldSize + 1;
 
-            for (int j = 0; j < field.fieldSize; j++) {
+        boolean isWinHorizontal = true;
+        boolean isWinVertical = true;
+        boolean isWinMainDiagonal = true;
+        boolean isWinSideDiagonal = true;
 
-                if (field.getField()[i][j].equals(getMark())) {
-                    markCount++;
-                } else {
-                    markCount = 0;
-                    break;
+        /*если ячейка четная, то нужно проверять только ячейки столбца и строки для текущего хода,
+        если - нечетная, то также необходимо проверить диагональ, на которой она лежит
+        */
+
+        switch (currentMove % 2) {
+
+            case 1: {
+
+                switch (currentMove) {
+
+                    case 5: {
+
+                        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
+                            isWinMainDiagonal &= field.getField()[i][i].equals(getMark());
+                            isWinSideDiagonal &= field.getField()[i][k].equals(getMark());
+                        }
+
+                        if (isWinMainDiagonal || isWinSideDiagonal) {
+                            System.out.println(player.getName() + " is winner!!!");
+                            return true;
+                        }
+
+                        break;
+
+                    }
+
+                    case 1:
+                    case 9: {
+
+                        for (int i = 0; i < field.fieldSize; i++) {
+                            isWinMainDiagonal &= field.getField()[i][i].equals(getMark());
+                        }
+
+                        if (isWinMainDiagonal) {
+                            System.out.println(player.getName() + " is winner!!!");
+                            return true;
+                        }
+
+                        break;
+                    }
+
+                    case 3:
+                    case 7: {
+
+                        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
+                            isWinSideDiagonal &= field.getField()[i][k].equals(getMark());
+                        }
+
+                        if (isWinSideDiagonal) {
+                            System.out.println(player.getName() + " is winner!!!");
+                            return true;
+                        }
+
+                        break;
+
+                    }
+
                 }
 
             }
 
-            if (markCount == 3) {
-                System.out.println(player.getName() + " is winner!!!");
-                return true;
-            }
+            case 0: {
 
-            markCount = 0;
+                for (int i = 0; i < field.fieldSize; i++) {
+                    isWinHorizontal &= field.getField()[i][xMoveCoord].equals(getMark());
+                    isWinVertical &= field.getField()[yMoveCoord][i].equals(getMark());
+                }
 
-            for (int j = 0; j < field.fieldSize; j++) {
-
-                if (field.getField()[j][i].equals(getMark())) {
-                    markCount++;
-                } else {
-                    markCount = 0;
-                    break;
+                if (isWinHorizontal || isWinVertical) {
+                    System.out.println(player.getName() + " is winner!!!");
+                    return true;
                 }
 
             }
 
-            if (markCount == 3) {
-                System.out.println(player.getName() + " is winner!!!");
-                return true;
-            }
-        }
-
-        int markCount = 0;
-
-        for (int i = 0; i < field.fieldSize ; i++) {
-            if (field.getField()[i][i].equals(getMark())) {
-                 markCount++;
-            } else {
-                markCount = 0;
-                break;
-            }
-        }
-
-        if (markCount == 3) {
-            System.out.println(player.getName() + " is winner!!!");
-            return true;
-        }
-
-        markCount = 0;
-
-        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize ; i++, k--) {
-            if (field.getField()[i][k].equals(getMark())) {
-                markCount++;
-            } else {
-                markCount = 0;
-                break;
-            }
-        }
-
-        if (markCount == 3) {
-            System.out.println(player.getName() + " is winner!!!");
-            return true;
+            default: break;
         }
 
         return false;

@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 
         while (true) {
             move = in.nextLine();
-            if (field.isCellFree(move)) break;
+            if (!move.isEmpty() && field.isCellFree(move)) break;
             System.out.print("Your move is not correct, try again: ");
         }
 
