@@ -15,9 +15,6 @@ class Field {
 
     private String freeCells = "123456789";
 
-    Field() {
-    }
-
     String getCell(int i, int j) {
         return field[i][j];
     }
@@ -53,6 +50,6 @@ class Field {
     }
 
     void takeUpFreeCell(String cell) {
-        if (!freeCells.isEmpty()) freeCells = freeCells.replace(cell,"");
+        freeCells = freeCells.replace(cell,"");
     }
 }

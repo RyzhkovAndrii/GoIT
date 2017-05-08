@@ -9,10 +9,10 @@ class GameLogic {
     private Field field = new Field();
 
     private int movesCount = 0;
-    private int turn;
+    private int turn = 0;
 
-    private int xMoveCoord;
-    private int yMoveCoord;
+    private int moveCoordinateHorizontal;
+    private int moveCoordinateVertical;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -52,8 +52,8 @@ class GameLogic {
                     field.setCell(i, j, player.getMark());
                     field.takeUpFreeCell(move);
 
-                    xMoveCoord = j;
-                    yMoveCoord = i;
+                    moveCoordinateHorizontal = i;
+                    moveCoordinateVertical = j;
 
                     return;
                 }
@@ -67,7 +67,7 @@ class GameLogic {
 
         if (movesCount < 4) return false;
 
-        int currentMove = yMoveCoord + xMoveCoord * field.fieldSize + 1;
+        int currentMove = moveCoordinateHorizontal + moveCoordinateVertical * field.fieldSize + 1;
 
         boolean isWinHorizontal = true;
         boolean isWinVertical = true;
@@ -140,8 +140,8 @@ class GameLogic {
             case 0: {
 
                 for (int i = 0; i < field.fieldSize; i++) {
-                    isWinHorizontal &= field.getCell(i, xMoveCoord).equals(player.getMark());
-                    isWinVertical &= field.getCell(yMoveCoord, i).equals(player.getMark());
+                    isWinHorizontal &= field.getCell(i, moveCoordinateVertical).equals(player.getMark());
+                    isWinVertical &= field.getCell(moveCoordinateHorizontal, i).equals(player.getMark());
                 }
 
                 if (isWinHorizontal || isWinVertical) {
