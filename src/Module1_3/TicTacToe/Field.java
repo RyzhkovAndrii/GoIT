@@ -2,6 +2,9 @@ package Module1_3.TicTacToe;
 
 public class Field {
 
+    public static final String O_MARK = "O";
+    public static final String X_MARK = "X";
+
     private String[][] field;
     private String freeCells;
     public final int fieldSize = 3;

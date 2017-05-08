@@ -18,7 +18,7 @@ public class GameLogic {
 
     private void initGame() {
 
-        players[0] = new HumanPlayer("Player 1");
+        players[0] = new HumanPlayer("Player 1", Field.X_MARK);
 
         System.out.print("Choose number of players (1 or 2): ");
 
@@ -29,7 +29,7 @@ public class GameLogic {
                     players[1] = new ComputerPlayer();
                     return;
                 case "2":
-                    players[1] = new HumanPlayer("Player 2");
+                    players[1] = new HumanPlayer("Player 2", Field.O_MARK);
                     return;
                 default:
                     System.out.print("Your choose is not correct, try again: ");
@@ -37,10 +37,6 @@ public class GameLogic {
             }
 
         }
-    }
-
-    private String getMark() {
-        return turn == 0 ? "X" : "O";
     }
 
     private void processMove(Player player) {
@@ -53,7 +49,7 @@ public class GameLogic {
 
                 if (move.equals(field.getField()[i][j])) {
 
-                    field.getField()[i][j] = getMark();
+                    field.getField()[i][j] = player.getMark();
                     field.takeUpFreeCell(move);
 
                     xMoveCoord = j;
@@ -91,8 +87,8 @@ public class GameLogic {
                     case 5: {
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
-                            isWinMainDiagonal &= field.getField()[i][i].equals(getMark());
-                            isWinSideDiagonal &= field.getField()[i][k].equals(getMark());
+                            isWinMainDiagonal &= field.getField()[i][i].equals(player.getMark());
+                            isWinSideDiagonal &= field.getField()[i][k].equals(player.getMark());
                         }
 
                         if (isWinMainDiagonal || isWinSideDiagonal) {
@@ -108,7 +104,7 @@ public class GameLogic {
                     case 9: {
 
                         for (int i = 0; i < field.fieldSize; i++) {
-                            isWinMainDiagonal &= field.getField()[i][i].equals(getMark());
+                            isWinMainDiagonal &= field.getField()[i][i].equals(player.getMark());
                         }
 
                         if (isWinMainDiagonal) {
@@ -123,7 +119,7 @@ public class GameLogic {
                     case 7: {
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
-                            isWinSideDiagonal &= field.getField()[i][k].equals(getMark());
+                            isWinSideDiagonal &= field.getField()[i][k].equals(player.getMark());
                         }
 
                         if (isWinSideDiagonal) {
@@ -144,8 +140,8 @@ public class GameLogic {
             case 0: {
 
                 for (int i = 0; i < field.fieldSize; i++) {
-                    isWinHorizontal &= field.getField()[i][xMoveCoord].equals(getMark());
-                    isWinVertical &= field.getField()[yMoveCoord][i].equals(getMark());
+                    isWinHorizontal &= field.getField()[i][xMoveCoord].equals(player.getMark());
+                    isWinVertical &= field.getField()[yMoveCoord][i].equals(player.getMark());
                 }
 
                 if (isWinHorizontal || isWinVertical) {

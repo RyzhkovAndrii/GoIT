@@ -5,8 +5,16 @@ import java.util.Scanner;
 public class ComputerPlayer extends Player {
 
 
+    public ComputerPlayer(String name, String mark) {
+        super(name, mark);
+    }
+
+    public ComputerPlayer(String mark) {
+        super("Computer", mark);
+    }
+
     public ComputerPlayer() {
-        super("Computer");
+        super("Computer", Field.O_MARK);
     }
 
     @Override
