@@ -2,7 +2,7 @@ package Module1_3.TicTacToe;
 
 import java.util.Scanner;
 
-public class GameLogic {
+class GameLogic {
 
     private Player[] players = new Player[2];
 
@@ -47,9 +47,9 @@ public class GameLogic {
 
             for (int j = 0; j < field.fieldSize; j++) {
 
-                if (move.equals(field.getField()[i][j])) {
+                if (move.equals(field.getCell(i, j))) {
 
-                    field.getField()[i][j] = player.getMark();
+                    field.setCell(i, j, player.getMark());
                     field.takeUpFreeCell(move);
 
                     xMoveCoord = j;
@@ -87,8 +87,8 @@ public class GameLogic {
                     case 5: {
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
-                            isWinMainDiagonal &= field.getField()[i][i].equals(player.getMark());
-                            isWinSideDiagonal &= field.getField()[i][k].equals(player.getMark());
+                            isWinMainDiagonal &= field.getCell(i, i).equals(player.getMark());
+                            isWinSideDiagonal &= field.getCell(i, k).equals(player.getMark());
                         }
 
                         if (isWinMainDiagonal || isWinSideDiagonal) {
@@ -104,7 +104,7 @@ public class GameLogic {
                     case 9: {
 
                         for (int i = 0; i < field.fieldSize; i++) {
-                            isWinMainDiagonal &= field.getField()[i][i].equals(player.getMark());
+                            isWinMainDiagonal &= field.getCell(i, i).equals(player.getMark());
                         }
 
                         if (isWinMainDiagonal) {
@@ -119,7 +119,7 @@ public class GameLogic {
                     case 7: {
 
                         for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
-                            isWinSideDiagonal &= field.getField()[i][k].equals(player.getMark());
+                            isWinSideDiagonal &= field.getCell(i, k).equals(player.getMark());
                         }
 
                         if (isWinSideDiagonal) {
@@ -140,8 +140,8 @@ public class GameLogic {
             case 0: {
 
                 for (int i = 0; i < field.fieldSize; i++) {
-                    isWinHorizontal &= field.getField()[i][xMoveCoord].equals(player.getMark());
-                    isWinVertical &= field.getField()[yMoveCoord][i].equals(player.getMark());
+                    isWinHorizontal &= field.getCell(i, xMoveCoord).equals(player.getMark());
+                    isWinVertical &= field.getCell(yMoveCoord, i).equals(player.getMark());
                 }
 
                 if (isWinHorizontal || isWinVertical) {
@@ -157,7 +157,7 @@ public class GameLogic {
         return false;
     }
 
-    public void start() {
+    void start() {
 
         initGame();
 

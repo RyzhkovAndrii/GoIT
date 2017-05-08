@@ -1,37 +1,40 @@
 package Module1_3.TicTacToe;
 
-public class Field {
+class Field {
 
-    public static final String O_MARK = "O";
-    public static final String X_MARK = "X";
+    static final String O_MARK = "O";
+    static final String X_MARK = "X";
 
-    private String[][] field;
-    private String freeCells;
-    public final int fieldSize = 3;
+    final int fieldSize = 3;
 
-    public Field() {
-        this.field = new String[][] {
-                {"1", "2", "3"},
-                {"4", "5", "6"},
-                {"7", "8", "9"}
-        };
+    private String[][] field = new String[][] {
+            {"1", "2", "3"},
+            {"4", "5", "6"},
+            {"7", "8", "9"}
+    };
 
-        freeCells = "123456789";
+    private String freeCells = "123456789";
+
+    Field() {
     }
 
-    public String[][] getField() {
-        return field;
+    String getCell(int i, int j) {
+        return field[i][j];
     }
 
-    public String getFreeCells() {
+    void setCell(int i, int j, String input) {
+        field[i][j] = input;
+    }
+
+    String getFreeCells() {
         return freeCells;
     }
 
-    public boolean isCellFree(String cell) {
+    boolean isCellFree(String cell) {
         return freeCells.contains(cell);
     }
 
-    public void printField() {
+    void printField() {
 
         for (int i = 0; i < fieldSize; i++) {
 
@@ -49,7 +52,7 @@ public class Field {
 
     }
 
-    public void takeUpFreeCell(String cell) {
+    void takeUpFreeCell(String cell) {
         if (!freeCells.isEmpty()) freeCells = freeCells.replace(cell,"");
     }
 }

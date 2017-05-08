@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name, String mark) {
+    HumanPlayer(String name, String mark) {
         super(name, mark);
     }
 
     @Override
-    public String makeMove(Field field, Scanner scanner) {
+    String makeMove(Field field, Scanner scanner) {
 
         if (field.getFreeCells().length() == 1) {
             System.out.println(getName() + " your last move is \"" + field.getFreeCells() + "\"");
