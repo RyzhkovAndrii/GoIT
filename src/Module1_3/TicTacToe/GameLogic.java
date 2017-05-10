@@ -115,48 +115,28 @@ class GameLogic {
     }
 
     private boolean isWinMainDiagonal(String mark) {
-
-            boolean isWinMainDiagonal = true;
-
-            for (int i = 0; i < field.fieldSize; i++) {
-            isWinMainDiagonal &= field.getCell(i, i).equals(mark);
+        for (int i = 0; i < field.fieldSize; i++) {
+            if (!field.getCell(i, i).equals(mark)) return false;
         }
-
-        return isWinMainDiagonal;
-
+        return true;
     }
 
     private boolean isWinSideDiagonal(String mark) {
-
-        boolean isWinSideDiagonal = true;
-
-        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--) {
-            isWinSideDiagonal &= field.getCell(i, k).equals(mark);
-        }
-
-        return isWinSideDiagonal;
+        for (int i = 0, k = field.fieldSize - 1; i < field.fieldSize; i++, k--)
+            if (!field.getCell(i, k).equals(mark)) return false;
+        return true;
     }
 
     private boolean isWinHorizontal(String mark) {
-
-        boolean isWinHorizontal = true;
-
-        for (int i = 0; i < field.fieldSize; i++) {
-            isWinHorizontal &= field.getCell(i, moveCoordinateVertical).equals(mark);
-        }
-
-        return isWinHorizontal;
+        for (int i = 0; i < field.fieldSize; i++)
+            if (!field.getCell(i, moveCoordinateVertical).equals(mark)) return false;
+        return true;
     }
 
     private boolean isWinVertical(String mark) {
-
-        boolean isWinVertical = true;
-
-        for (int i = 0; i < field.fieldSize; i++) {
-            isWinVertical &= field.getCell(moveCoordinateHorizontal, i).equals(mark);
-        }
-
-        return isWinVertical;
+        for (int i = 0; i < field.fieldSize; i++)
+            if (!field.getCell(moveCoordinateHorizontal, i).equals(mark)) return false;
+        return true;
     }
 
     void start() {
