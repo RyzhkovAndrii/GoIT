@@ -56,20 +56,22 @@ class IntCollection {
 
     /**
      * Add a new integer element in this collection and increases the value of all
-     * elements in the collection on his value
+     * elements in the collection on its value
      *
      * @param element the element which is added in the collection
      */
-    void add(Integer element) {
+    void add(int element) {
         increaseElementsValue(element);
         intList.add(element);
     }
 
     /**
-     * Removes the element at the specified position in this collection.
+     * Removes the element at the specified position in this collection and
+     * decreases the value of all elements in the collection on its value.
      *
      * @param index the index of the element to be removed
      * @return the element that was removed from the list
+     * @throws IndexOutOfBoundsException
      */
     Integer removeByIndex(int index) {
         Integer value = intList.remove(index);
@@ -77,6 +79,14 @@ class IntCollection {
         return value;
     }
 
+    /**
+     * Removes the first occurrence of the specified element from this
+     * collection, if it is present, and decreases the value of all elements
+     * in the collection on value.
+     *
+     * @param value the value of element which removes from this collection, if present
+     * @return <tt>true</tt> if the element was removed from this collection
+     */
     boolean removeByValue(Integer value) {
         if (intList.remove(value)) {
             decreaseElementsValue(value);
@@ -85,7 +95,40 @@ class IntCollection {
         return false;
     }
 
+    /**
+     * Returns the element at the specified position in this collection
+     *
+     * @param index index of the element to return
+     * @return the element at the specified position in this collection
+     * @throws IndexOutOfBoundsException
+     */
+    Integer get(int index) {
+        return intList.get(index);
+    }
+
+    /**
+     * Returns the index of the first occurrence of the specified element
+     * in this list, or -1 if this collection does not contain the element.
+     *
+     * @param value the value of element which index returned from this
+     * collection, if element present
+     * @return the index of the element, or -1 if this collection does not contain the element
+     */
+    int indexOf(Integer value) {
+        return intList.indexOf(value);
+    }
+
+    /**
+     * Find maximal element in this collection
+     *
+     * @return the value of maximal element, or ... if this collection
+     * does not contain the element.
+     */
     Integer getMax() {
+        /*if (intList.size() == 0) {
+            return 0;
+        }*/
+
         int max = Integer.MIN_VALUE;
         for (Integer element : intList) {
             if (element > max) {
@@ -95,7 +138,16 @@ class IntCollection {
         return max;
     }
 
+    /**
+     * Find minimal element in this collection
+     *
+     * @return the value of minimal element, or ... if this collection
+     * does not contain the element.
+     */
     Integer getMin() {
+        /*if (intList.size() == 0) {
+            return 0;
+        }*/
         int min = Integer.MAX_VALUE;
         for (Integer element : intList) {
             if (element > min) {
@@ -105,8 +157,21 @@ class IntCollection {
         return min;
     }
 
-
-
-
+    /**
+     * Find average of all element in this collection
+     *
+     * @return average, or ... if this collection
+     * does not contain the element.
+     */
+    Integer getAverage() {
+        /*if (intList.size() == 0) {
+            return 0;
+        }*/
+        int average = 0;
+        for (Integer element : intList) {
+            average += element;
+        }
+        return average / intList.size();
+    }
 
 }
