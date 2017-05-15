@@ -52,7 +52,7 @@ class IntCollection {
 
     /**
      * Constructs a collection containing the elements of the specified
-     * collection
+     * IntCollection
      *
      * @param intCollection the collection whose elements are to be placed into this
      * @throws NullPointerException if the specified collection is null
@@ -71,6 +71,16 @@ class IntCollection {
      */
     private int size() {
         return intList.size();
+    }
+
+    /**
+     * Check if this collection contains elements.
+     *
+     * @return <tt>true</tt> if this list contains no elements
+     */
+
+    private boolean isEmpty() {
+        return this.size() == 0;
     }
 
     /**
@@ -102,7 +112,7 @@ class IntCollection {
      * @param element the element which is added in the collection
      */
     void add(int element) {
-        increaseElementsValue(element);
+        this.increaseElementsValue(element);
         intList.add(element);
     }
 
@@ -116,7 +126,7 @@ class IntCollection {
      */
     Integer removeByIndex(int index) {
         Integer value = intList.remove(index);
-        decreaseElementsValue(value);
+        this.decreaseElementsValue(value);
         return value;
     }
 
@@ -130,7 +140,7 @@ class IntCollection {
      */
     boolean removeByValue(Integer value) {
         if (intList.remove(value)) {
-            decreaseElementsValue(value);
+            this.decreaseElementsValue(value);
             return true;
         }
         return false;
@@ -166,7 +176,7 @@ class IntCollection {
      * does not contain the element.
      */
     Integer getMaximal() {
-        if (intList.size() == 0) {
+        if (this.isEmpty()) {
             return null;
         }
         int maximal = Integer.MIN_VALUE;
@@ -185,7 +195,7 @@ class IntCollection {
      * does not contain the element.
      */
     Integer getMinimal() {
-        if (intList.size() == 0) {
+        if (this.isEmpty()) {
             return null;
         }
         int minimal = Integer.MAX_VALUE;
@@ -203,7 +213,7 @@ class IntCollection {
      * @return average, or <tt>null</tt> if this collection does not contain the element.
      */
     Double getAverage() {
-        if (intList.size() == 0) {
+        if (this.isEmpty()) {
             return null;
         }
         double average = 0.0;
