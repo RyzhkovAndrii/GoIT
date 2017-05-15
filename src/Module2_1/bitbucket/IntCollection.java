@@ -30,7 +30,48 @@ class IntCollection {
     /**
      * The ArrayList into which the elements of the IntCollection are stored.
      */
-    private List<Integer> intList = new ArrayList<>();
+    private List<Integer> intList;
+
+    /**
+     * Constructs an empty collection
+     */
+    IntCollection() {
+        intList = new ArrayList<>();
+    }
+
+    /**
+     * Constructs an empty collection with the specified initial capacity.
+     *
+     * @param  initialCapacity  the initial capacity of the collection
+     * @throws IllegalArgumentException if the specified initial capacity
+     *         is negative
+     */
+    IntCollection(int initialCapacity) {
+        intList = new ArrayList<>(initialCapacity);
+    }
+
+    /**
+     * Constructs a collection containing the elements of the specified
+     * collection
+     *
+     * @param intCollection the collection whose elements are to be placed into this
+     * @throws NullPointerException if the specified collection is null
+     */
+    IntCollection(IntCollection intCollection) {
+        intList = new ArrayList<>(intCollection.size());
+        for (int i = 0; i < intCollection.size(); i++) {
+            intList.add(intCollection.get(i));
+        }
+    }
+
+    /**
+     * Return the size of this collection
+     *
+     * @return the size of this collection
+     */
+    private int size() {
+        return intList.size();
+    }
 
     /**
      * Increases the value of all elements in this collection
@@ -38,8 +79,8 @@ class IntCollection {
      * @param value the value on which the values of all elements increase
      */
     private void increaseElementsValue(int value) {
-        for (Integer element : intList) {
-            element += value;
+        for (int i = 0; i < intList.size(); i++) {
+            intList.set(i, intList.get(i) + value);
         }
     }
 
@@ -49,8 +90,8 @@ class IntCollection {
      * @param value the value on which the values of all elements decrease
      */
     private void decreaseElementsValue(int value) {
-        for (Integer element : intList) {
-            element -= value;
+        for (int i = 0; i < intList.size(); i++) {
+            intList.set(i, intList.get(i) - value);
         }
     }
 
@@ -161,11 +202,11 @@ class IntCollection {
      *
      * @return average, or <tt>null</tt> if this collection does not contain the element.
      */
-    Integer getAverage() {
+    Double getAverage() {
         if (intList.size() == 0) {
             return null;
         }
-        int average = 0;
+        double average = 0.0;
         for (Integer element : intList) {
             average += element;
         }
