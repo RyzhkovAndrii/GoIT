@@ -121,52 +121,50 @@ class IntCollection {
     /**
      * Find maximal element in this collection
      *
-     * @return the value of maximal element, or ... if this collection
+     * @return the value of maximal element, or <tt>null</tt> if this collection
      * does not contain the element.
      */
-    Integer getMax() {
-        /*if (intList.size() == 0) {
-            return 0;
-        }*/
-
-        int max = Integer.MIN_VALUE;
+    Integer getMaximal() {
+        if (intList.size() == 0) {
+            return null;
+        }
+        int maximal = Integer.MIN_VALUE;
         for (Integer element : intList) {
-            if (element > max) {
-                max = element;
+            if (element > maximal) {
+                maximal = element;
             }
         }
-        return max;
+        return maximal;
     }
 
     /**
      * Find minimal element in this collection
      *
-     * @return the value of minimal element, or ... if this collection
+     * @return the value of minimal element, or <tt>null</tt> if this collection
      * does not contain the element.
      */
-    Integer getMin() {
-        /*if (intList.size() == 0) {
-            return 0;
-        }*/
-        int min = Integer.MAX_VALUE;
+    Integer getMinimal() {
+        if (intList.size() == 0) {
+            return null;
+        }
+        int minimal = Integer.MAX_VALUE;
         for (Integer element : intList) {
-            if (element > min) {
-                min = element;
+            if (element < minimal) {
+                minimal = element;
             }
         }
-        return min;
+        return minimal;
     }
 
     /**
      * Find average of all element in this collection
      *
-     * @return average, or ... if this collection
-     * does not contain the element.
+     * @return average, or <tt>null</tt> if this collection does not contain the element.
      */
     Integer getAverage() {
-        /*if (intList.size() == 0) {
-            return 0;
-        }*/
+        if (intList.size() == 0) {
+            return null;
+        }
         int average = 0;
         for (Integer element : intList) {
             average += element;
