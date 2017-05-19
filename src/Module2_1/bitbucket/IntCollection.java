@@ -6,23 +6,13 @@ import java.util.List;
 /**
  * Created by Ryzhkov Andrii on 14.05.2017.
  *
- * Необходимо реализовать коллекцию целых чисел, которая позволяет выполнять операции:
- * - добавления
- * - удаления
- * - поиска элемента по значению
- * - поиска элемента по индексу
- * - поиска максимального элемента
- * - поиска минимального элемента
- * - поиска среднего арифметического всех элементов
+ * <tt>IntCollection<tt> is an implementation of the <tt>ArrayList<tt> for elements of type
+ * Integer only (not permits <tt>null<tt> too). The number of elements is not limited.
+ * Class contains the modified methods <tt>add<tt> and <tt>remove<tt> that also
+ * increase/decrease the value of all elements on the added/removed element value.
+ * Class contains the methods <tt>getMaximal<tt>, <tt>getMinimal<tt>, <tt>getAverage<tt>.
+ * The methods <tt>get<tt> and <tt>indexOf<tt> are similar to methods of the ArrayList class.
  *
- * При этом:
- * - при добавлении нового элемента все элементы увеличивают своё значение на добавляемый элемент
- * - при удалении - уменьшают своё значение на удаляемый элемент
-
- * Недопустим ввод в коллекцию null, символов и других значений, кроме целых чисел.
-
- * Результатом работы должен быть отдельный репозиторий github/bitbucket с README файлом, который описывает задание,
- * сам класс и содержит инструкции по запуску приложения.
  */
 
 class IntCollection {
@@ -78,7 +68,6 @@ class IntCollection {
      *
      * @return <tt>true</tt> if this list contains no elements
      */
-
     private boolean isEmpty() {
         return this.size() == 0;
     }
