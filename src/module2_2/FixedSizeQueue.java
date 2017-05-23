@@ -1,6 +1,7 @@
 package module2_2;
 
 import java.util.ArrayDeque;
+import java.util.Iterator;
 import java.util.Queue;
 
 /**
@@ -141,13 +142,26 @@ class FixedSizeQueue<E> {
     }
 
     /**
-     * Retrieves, but does not remove, the head of this queue,
-     * or returns <tt>null</tt> if this queue is empty.
+     * Returns the element at the specified position in this queue
      *
-     * @return the head of this queue, or <tt>null</tt> if this queue is empty
+     * @param index index of the element to return
+     * @return the element at the specified position in this queue
+     * @throws IndexOutOfBoundsException
      */
-    E peek() {
-        return fixedSizeQueue.peek();
+    E get(int index) {
+        if (index >= maxSize || index < 0) {
+            throw new IndexOutOfBoundsException("Index: "+index+", MaxSize: "+maxSize);
+        }
+        Iterator<E> iterator = fixedSizeQueue.iterator();
+        int currentIndex = 0;
+        E element = null;
+        while (iterator.hasNext()) {
+            element = iterator.next();
+            if (currentIndex++ == index) {
+                break;
+            }
+        }
+        return element;
     }
 
 }
