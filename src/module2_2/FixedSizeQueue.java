@@ -27,7 +27,7 @@ class FixedSizeQueue<E> {
      * @return <tt>true</tt> if this queue is full
      */
     private boolean isFull() {
-        return this.size() == maxSize;
+        return this.size() >= maxSize;
     }
 
     /**
@@ -41,31 +41,22 @@ class FixedSizeQueue<E> {
     }
 
     /**
+     * Set max size of this queue.
+     * If setting max size is negative, then set max size in default
+     *
+     * @param  maxSize max size of queue
+     */
+    private void setMaxSize(int maxSize) {
+        this.maxSize = maxSize >= 0 ? maxSize: 16;
+    }
+
+    /**
      * Return the size of this queue
      *
      * @return the size of this queue
      */
     private int size() {
         return fixedSizeQueue.size();
-    }
-
-
-    /**
-     * Place elements of the specified FixedSizeQueue into this queue.
-     * If the size of the fixedSizeQueue is bigger than max size of this
-     * queue, then add only first elements of the FixedSizeQueue which
-     * can be placed in this queue
-     *
-     * @param anotherQueue the queue whose elements are to be placed into this
-     */
-    private void placeFixedQueue(FixedSizeQueue<E> anotherQueue) {
-        for (int elementsCount = maxSize; elementsCount > 0; elementsCount--) {
-            E element = anotherQueue.poll();
-            if (element == null) {
-                return;
-            }
-            fixedSizeQueue.add(element);
-        }
     }
 
     /**
@@ -82,7 +73,7 @@ class FixedSizeQueue<E> {
      */
     FixedSizeQueue(int maxSize) {
         this();
-        this.maxSize = maxSize;
+        setMaxSize(maxSize);
     }
 
     /**
@@ -92,10 +83,11 @@ class FixedSizeQueue<E> {
      * FixedSizeQueue which can be placed in this queue
      *
      * @param anotherQueue the queue whose elements are to be placed into this
+     * @throws NullPointerException if the specified queue is null
      */
     FixedSizeQueue(FixedSizeQueue<E> anotherQueue) {
         this();
-        placeFixedQueue(anotherQueue);
+        add(anotherQueue);
     }
 
     /**
@@ -106,10 +98,11 @@ class FixedSizeQueue<E> {
      * Also set max size of queue
      *
      * @param anotherQueue the queue whose elements are to be placed into this
+     * @throws NullPointerException if the specified queue is null
      */
     FixedSizeQueue(int maxSize, FixedSizeQueue<E> anotherQueue) {
         this(maxSize);
-        placeFixedQueue(anotherQueue);
+        add(anotherQueue);
     }
 
     /**
@@ -126,10 +119,35 @@ class FixedSizeQueue<E> {
      */
     E add(E element) {
         E head = this.isFull() ? fixedSizeQueue.poll() : null;
-        fixedSizeQueue.add(element);
+        fixedSizeQueue.offer(element);
         return head;
     }
 
+    /**
+     * Inserts elements of the specified FixedSizeQueue into this queue.
+     * If number of element of this queue is bigger than max size, then removed
+     * the element from the head of this queue (in other words, add only last elements
+     * of the FixedSizeQueue in an amount equal to max size of this queue)
+     *
+     * @param anotherQueue the queue whose elements are to be placed into this
+     * @throws ClassCastException if the class of the adding element the FixedSizeQueue
+     *         prevents it from being added to this queue
+     */
+    void add(FixedSizeQueue<E> anotherQueue) {
+        E element;
+        while ((element = anotherQueue.poll()) != null) {
+            fixedSizeQueue.offer(element);
+        }
+    }
 
+    /**
+     * Retrieves, but does not remove, the head of this queue,
+     * or returns <tt>null</tt> if this queue is empty.
+     *
+     * @return the head of this queue, or <tt>null</tt> if this queue is empty
+     */
+    E peek() {
+        return fixedSizeQueue.peek();
+    }
 
 }
