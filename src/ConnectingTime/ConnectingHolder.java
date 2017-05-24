@@ -13,9 +13,6 @@ import java.util.Scanner;
 
 class ConnectingHolder {
 
-    private static final String LOG_FILE_PATH = "D:\\GoIT\\IdeaProjects\\GoIT\\src\\ConnectingTime\\sessions_log.txt";
-    private static final String PERIOD_FILE_PATH = "D:\\GoIT\\IdeaProjects\\GoIT\\src\\ConnectingTime\\period.txt";
-
     private boolean checkDate(long date, long start, long finish) {
         return date >= start && date <= finish;
     }
@@ -24,22 +21,9 @@ class ConnectingHolder {
         return new SimpleDateFormat("dd.MM.yy hh:mm:ss").parse(sDate).getTime();
     }
 
-    void processing() throws FileNotFoundException, ParseException {
+    boolean isConnectingInPeriod(Connecting connecting, String start, String finish) throws ParseException {
+        return checkDate(connecting.getConnectingTime(), dateParse(start), dateParse(finish));
 
-        Scanner logFile = new Scanner(new File(LOG_FILE_PATH));
-        Scanner periodFile = new Scanner(new File(PERIOD_FILE_PATH));
-
-        long startPeriod = dateParse(periodFile.nextLine());
-        long finishPeriod = dateParse(periodFile.nextLine());
-
-        while(logFile.hasNextLine()) {
-            Connecting connecting = new Connecting(logFile.nextLine());
-            if (checkDate(connecting.getConnectingTime(),startPeriod, finishPeriod)) {
-                System.out.println(connecting.getIp());
-            }
-        }
-
-        logFile.close();
-        periodFile.close();
     }
+
 }
