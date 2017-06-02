@@ -7,6 +7,12 @@ import java.util.Queue;
 /**
  * Created by Andrii Ryzhkov on 23.05.2017.
  *
+ * <tt>FixedSizeQueue<E><tt> is an implementation of the <tt>ArrayDeque<tt> with limited
+ * numbers of elements.
+ * Class contains the modified methods <tt>add<tt> that inserts the element
+ * into the tail of this queue and if number of element of this queue is bigger than max size,
+ * then removed the element from the head of this queue.
+ *
  * @param <E> the type of elements held in this queue
  */
 
@@ -28,7 +34,7 @@ class FixedSizeQueue<E> {
      * @return <tt>true</tt> if this queue is full
      */
     private boolean isFull() {
-        return this.size() >= maxSize;
+        return size() >= maxSize;
     }
 
     /**
@@ -64,7 +70,7 @@ class FixedSizeQueue<E> {
      * Constructs an empty queue
      */
     FixedSizeQueue() {
-        this.fixedSizeQueue = new ArrayDeque<>();
+        fixedSizeQueue = new ArrayDeque<>();
     }
 
     /**
@@ -119,7 +125,7 @@ class FixedSizeQueue<E> {
      * @throws NullPointerException if the adding element is null
      */
     E add(E element) {
-        E head = this.isFull() ? fixedSizeQueue.poll() : null;
+        E head = isFull() ? fixedSizeQueue.poll() : null;
         fixedSizeQueue.offer(element);
         return head;
     }
@@ -135,9 +141,8 @@ class FixedSizeQueue<E> {
      *         prevents it from being added to this queue
      */
     void add(FixedSizeQueue<E> anotherQueue) {
-        E element;
-        while ((element = anotherQueue.poll()) != null) {
-            fixedSizeQueue.offer(element);
+        for (int index = 0; index < anotherQueue.size(); index++) {
+            add(anotherQueue.get(index));
         }
     }
 
@@ -164,4 +169,17 @@ class FixedSizeQueue<E> {
         return element;
     }
 
+    /**
+     * This method created for testing this class only
+     */
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (E element : fixedSizeQueue) {
+            builder.append(element);
+            builder.append(" ");
+        }
+        return "FixedSizeQueue{ " + builder.toString() + " }";
+    }
 }
