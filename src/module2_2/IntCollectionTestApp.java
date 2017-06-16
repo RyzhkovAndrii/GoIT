@@ -1,10 +1,5 @@
 package module2_2;
 
-/**
- * Created by Andrii Ryzhkov on 02.06.2017.
- *
- */
-
 public class IntCollectionTestApp {
 
     public static void main(String[] args) {
