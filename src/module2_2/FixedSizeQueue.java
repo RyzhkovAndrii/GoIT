@@ -6,7 +6,7 @@ import java.util.Queue;
 
 class FixedSizeQueue<E> {
 
-   private Queue<E> fixedSizeQueue;
+    private Queue<E> fixedSizeQueue;
 
     private int maxSize = 16;
 
@@ -14,12 +14,8 @@ class FixedSizeQueue<E> {
         return size() >= maxSize;
     }
 
-    private E poll() {
-        return fixedSizeQueue.poll();
-    }
-
     private void setMaxSize(int maxSize) {
-        this.maxSize = maxSize >= 0 ? maxSize: 16;
+        this.maxSize = maxSize >= 0 ? maxSize : 16;
     }
 
     private int size() {
@@ -59,7 +55,7 @@ class FixedSizeQueue<E> {
 
     E get(int index) {
         if (index >= maxSize || index < 0) {
-            throw new IndexOutOfBoundsException("Index: "+index+", MaxSize: "+maxSize);
+            throw new IndexOutOfBoundsException("Index: " + index + ", MaxSize: " + maxSize);
         }
         Iterator<E> iterator = fixedSizeQueue.iterator();
         int currentIndex = 0;
