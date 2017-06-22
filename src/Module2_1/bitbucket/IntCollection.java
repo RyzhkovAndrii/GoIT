@@ -12,7 +12,12 @@ class IntCollection {
     }
 
     IntCollection(int initialCapacity) {
-        intList = new ArrayList<>(initialCapacity);
+        try {
+            intList = new ArrayList<>(initialCapacity);
+        } catch (IllegalArgumentException e) {
+
+        }
+
     }
 
     IntCollection(IntCollection intCollection) {
