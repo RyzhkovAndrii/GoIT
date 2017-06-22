@@ -36,11 +36,10 @@ public class DeveloperDAO {
 
     public Developer getDeveloperByID(long id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(dataPath))) {
-            String stringDeveloper;
-            while ((stringDeveloper = reader.readLine()) != null) {
-                Developer developer = getDeveloperFromString(stringDeveloper);
-                if (developer.getId() == id) {
-                    return developer;
+            String tmpDeveloperData;
+            while ((tmpDeveloperData = reader.readLine()) != null) {
+                if (tmpDeveloperData.split(",")[0].equals(String.valueOf(id))) {
+                    return getDeveloperFromString(tmpDeveloperData);
                 }
             }
         } catch (IOException e) {
