@@ -1,8 +1,9 @@
 package module2_2;
 
-import java.util.ArrayDeque;
+//import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 class FixedSizeQueue<E> {
 
@@ -22,8 +23,12 @@ class FixedSizeQueue<E> {
         return fixedSizeQueue.size();
     }
 
-    FixedSizeQueue() {
+   /* FixedSizeQueue() {
         fixedSizeQueue = new ArrayDeque<>();
+    }*/
+
+    FixedSizeQueue() {
+        fixedSizeQueue = new ConcurrentLinkedQueue<>();
     }
 
     FixedSizeQueue(int maxSize) {
