@@ -31,7 +31,7 @@ public class DeveloperController {
             double salary = Double.valueOf(developerData[5]);
             Developer developer = new Developer(id, firstName, lastName, specialty, experience, salary);
             return developerDAO.saveDeveloper(developer);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
     }
